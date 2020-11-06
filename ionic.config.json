@@ -1,0 +1,7 @@
+{
+  "name": "SmartDisplay",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
