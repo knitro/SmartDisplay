@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IonHeader, IonToolbar, IonTitle, IonMenu, IonContent, IonList, IonItem, IonMenuToggle, IonIcon, IonText } from "@ionic/react";
-import { searchOutline, search, cube, heartOutline, swapHorizontal, server, cash, chevronBackCircle, cogOutline, copy, alertCircle } from 'ionicons/icons';
+import { timeOutline, calendarOutline, newspaperOutline, listOutline, createOutline, cartOutline, desktopOutline } from 'ionicons/icons';
 import uuid from 'uuid';
 
 ////////////////////////
@@ -22,26 +22,13 @@ class SideBar extends Component {
   
   //Items on the Sidebar
   sideBarItems : SideBarItem[]= [
-    {label: "Quick Search", path: "/quick-search", iconName: searchOutline},
-    {label: "Advanced Search", path: "/advanced-search", iconName: search},
-    {label: "Dice", path: "/dice", iconName: cube},
-    {label: "Life Counter", path: "/life-counter/new-game", iconName: heartOutline},
-    {label: "Trade Cards", path: "/trade-cards", iconName: swapHorizontal},
-    {label: "Rules", path: "/rules/overview", iconName: server},
-    {label: "Set EVs", path: "/set-ev/overview", iconName: cash},
-    {label: "Search History", path: "/search-history", iconName: chevronBackCircle},
-    {label: "Settings", path: "/settings", iconName: cogOutline},
-    {label: "Help", path: "/help", iconName: alertCircle}
+    {label: "Time"            , path: "/time"             , iconName: timeOutline},
+    {label: "Calendar"        , path: "/calendar"         , iconName: calendarOutline},
+    {label: "Current Events"  , path: "/currentEvents"    , iconName: newspaperOutline},
+    {label: "Notes"           , path: "/notes"            , iconName: createOutline},
+    {label: "ToDo List"       , path: "/todoList"         , iconName: listOutline},
+    {label: "Shopping List"   , path: "/shoppingList"     , iconName: cartOutline},
   ];
-
-  ////////////////////////
-  /*Constructor*/
-  ////////////////////////
-
-  //Currently Commented out since it is not necessary. Uncomment if adding "dependencies"
-  // constructor(props : any) {
-  //   super(props)
-  // }
 
   ////////////////////////
   /*Methods*/
@@ -71,8 +58,10 @@ class SideBar extends Component {
       <IonMenu side="start" type="overlay" contentId="main">
         <IonHeader>
           <IonToolbar color="primary">
-            <IonIcon icon={copy} slot="start" size="large"/>
-            <IonTitle>{"MTG Squire"}</IonTitle>
+            <IonItem color="primary">
+              <IonIcon icon={desktopOutline} slot="start" size="large"/>
+              <IonTitle>{"SmartDisplay"}</IonTitle>
+            </IonItem>
           </IonToolbar>
         </IonHeader>
 
