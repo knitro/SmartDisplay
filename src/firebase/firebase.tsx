@@ -2,31 +2,24 @@
 import app from 'firebase/app'
 import 'firebase/database';
 import 'firebase/auth';
-
-const config = {
-  apiKey: "AIzaSyD-NAxOrD9fJR11rZPd2xlYL4XyExh1wcA",
-  authDomain: "smartdisplay-de3c6.firebaseapp.com",
-  databaseURL: "https://smartdisplay-de3c6.firebaseio.com",
-  projectId: "smartdisplay-de3c6",
-  storageBucket: "smartdisplay-de3c6.appspot.com",
-  messagingSenderId: "309238368036",
-  appId: "1:309238368036:web:8cd13ca4a63d96a76595b1"
-};
+import { firebaseConfig } from './firebaseConfig';
 
 class Firebase {
 
   ////////////////////////////
   /*Fields*/
   ////////////////////////////
+  
   auth : app.auth.Auth;
   db: app.database.Database;
 
   ////////////////////////////
   /*Constructor*/
   ////////////////////////////
+
   constructor() {
     if (!app.apps.length) {
-      app.initializeApp(config);
+      app.initializeApp(firebaseConfig);
     }
 
     this.auth = app.auth();
