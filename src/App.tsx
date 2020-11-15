@@ -33,6 +33,7 @@ import './theme/variables.css';
 
 import Main from './main/Main';
 import Firebase, { FirebaseContext } from './firebase';
+import LoginStateContext, { defaultLoginState } from './state/LoginState';
 
 ////////////////////////////////////////////////////////////////////////////////////
 /* App */
@@ -48,7 +49,9 @@ const App: React.FC = () => {
   ////////////////////////////
   return (
     <FirebaseContext.Provider value={new Firebase()}>
-      <Main/>
+      <LoginStateContext.Provider value={defaultLoginState}>
+        <Main/>
+      </LoginStateContext.Provider>
     </FirebaseContext.Provider>
   )
 };
