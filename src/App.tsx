@@ -1,7 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////
+/* React Imports */
+////////////////////////////////////////////////////////////////////////////////////
+
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonPage, IonRouterOutlet, IonSplitPane } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+
+////////////////////////////////////////////////////////////////////////////////////
+/* Ionic Imports */
+////////////////////////////////////////////////////////////////////////////////////
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -21,42 +26,31 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import SideBar from './components/SideBar/SideBar';
-import Calendar_Default from './pages/Default/Calendar/Calendar_Default';
-import CurrentEvents_Default from './pages/Default/CurrentEvents/CurrentEvents_Default';
-import Notes_Default from './pages/Default/Notes/Notes_Default';
-import ShoppingList_Default from './pages/Default/ShoppingList/ShoppingList_Default';
-import Time_Default from './pages/Default/Time/Time_Default';
-import TodoList_Default from './pages/Default/TodoList/TodoList_Default';
 
-const App: React.FC = () => (
+////////////////////////////////////////////////////////////////////////////////////
+/* Custom Imports */
+////////////////////////////////////////////////////////////////////////////////////
 
-  <IonApp>
-    <IonReactRouter>
+import Main from './main/Main';
+import Firebase, { FirebaseContext } from './firebase';
 
-      <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
+////////////////////////////////////////////////////////////////////////////////////
+/* App */
+////////////////////////////////////////////////////////////////////////////////////
 
-        <SideBar/>  {/* The Actual Sidebar */}
+/**
+ * Main React App
+ */
+const App: React.FC = () => {
 
-        <IonPage id="main"> {/* ID reference allowing for Sidebar Functionality */}
-
-          <IonRouterOutlet>
-            <Route path="/calendar"       component={Calendar_Default}      exact={true} />
-            <Route path="/currentEvents"  component={CurrentEvents_Default} exact={true} />
-            <Route path="/notes"          component={Notes_Default}         exact={true} />
-            <Route path="/shoppingList"   component={ShoppingList_Default}  exact={true} />
-            <Route path="/time"           component={Time_Default}          exact={true} />
-            <Route path="/todoList"       component={TodoList_Default}      exact={true} />
-            <Route path="/" render={() => <Redirect to="/time" />}          exact={true} />
-          </IonRouterOutlet>
-
-        </IonPage>
-
-      </IonSplitPane>
-
-    </IonReactRouter>
-  </IonApp>
-
-);
+  ////////////////////////////
+  /*Return*/
+  ////////////////////////////
+  return (
+    <FirebaseContext.Provider value={new Firebase()}>
+      <Main/>
+    </FirebaseContext.Provider>
+  )
+};
 
 export default App;
