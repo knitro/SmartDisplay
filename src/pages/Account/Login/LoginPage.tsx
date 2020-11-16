@@ -4,7 +4,7 @@ import Header from '../../../components/Header/Header';
 import CardHeader from '../../../components/Card/CardHeader';
 import Firebase from '../../../firebase';
 import { LoginInfo, submitLoginButtonPress } from './LoginLogic';
-import History from '../../../logic/History';
+import { useHistory } from 'react-router';
 
 interface LoginProps {
   firebase : Firebase
@@ -17,6 +17,7 @@ const LoginForm : React.FC<LoginProps> = (props: LoginProps) => {
   const [password,        setPassword]        = useState("");
   const [showLoading,     setShowLoading]     = useState(false);
   const [showAlert,       setShowAlert]       = useState(false);
+  const history = useHistory();
 
   //////////////////////////////
   /*Render Return*/
@@ -48,83 +49,84 @@ const LoginForm : React.FC<LoginProps> = (props: LoginProps) => {
 
       <IonContent fullscreen>
 
-      {/* Card 1:  Login Header*/}
-      <IonCard>
-        <CardHeader title={"Login"} subtitle={"Login into your SmartAccount Here"} />
-      </IonCard>
+        {/* Card 1:  Login Header*/}
+        <IonCard color="secondary">
+          <CardHeader title={"Login"} subtitle={"Login into your SmartAccount Here"} />
+        </IonCard>
 
-      {/* Card 2:  Form Card*/}
-      <IonCard>
-        <CardHeader title={"Login Details"} subtitle={"Authenticate below"} />
+        {/* Card 2:  Form Card*/}
+        <IonCard>
+          <CardHeader title={"Login Details"} subtitle={"Authenticate below"} />
+          
+          <IonCardContent>
+
+            {/*Email Address Form*/}
+            <IonText>{"Email Address"}</IonText>
+            <IonInput
+              type="email"
+              inputmode="email"
+              clearInput={true}
+              autocomplete="email"
+              placeholder={"Your Email Here"}
+              onChange={(event : any) => {setEmail(event.target.value);}}
+              required={true}
+              clearOnEdit={false}
+            />
+
+            {/*Password Form*/}
+            <IonText>{"Password"}</IonText>
+            <IonInput 
+              type="password"
+              inputmode="text"
+              clearInput={true}
+              autocomplete="off"
+              placeholder={"Your Password Here"}
+              onChange={(event : any) => {setPassword(event.target.value);}}
+              required={true}
+              clearOnEdit={false}
+            />
+
+            {/*Login Button*/}
+            <IonButton
+              expand="full" 
+              fill="solid"
+              color="primary"
+              type="submit"
+              onClick={() => {
+                let suppliedInfo : LoginInfo = {
+                  email           : email,
+                  password        : password,
+                }
+                submitLoginButtonPress(suppliedInfo, props.firebase, setShowLoading, setShowAlert);
+              }}
+            >
+              {"Log In"}
+            </IonButton>
+
+          </IonCardContent>
+        </IonCard>
         
-        <IonCardContent>
+        {/* Card 3:  Sign Up*/}
+        <IonCard>
+          <CardHeader title={"Sign Up!"} subtitle={"Press the button below if you don't have a MTG Squire Account"} />
 
-          {/*Email Address Form*/}
-          <IonText>{"Email Address"}</IonText>
-          <IonInput
-            type="email"
-            inputmode="email"
-            clearInput={true}
-            autocomplete="email"
-            placeholder={"Your Email Here"}
-            onChange={(event : any) => {setEmail(event.target.value);}}
-            required={true}
-            clearOnEdit={false}
-          />
+          <IonCardContent>
 
-          {/*Password Form*/}
-          <IonText>{"Password"}</IonText>
-          <IonInput 
-            type="password"
-            inputmode="text"
-            clearInput={true}
-            autocomplete="off"
-            placeholder={"Your Password Here"}
-            onChange={(event : any) => {setPassword(event.target.value);}}
-            required={true}
-            clearOnEdit={false}
-          />
-
-        </IonCardContent>
-      </IonCard>
-
-      {/* Card 3: Login Button*/}
-      <IonCard>
-        <IonButton
-          expand="full" 
-          fill="solid"
-          color="primary"
-          type="submit"
-          title="Login"
-          onClick={(event) => {
-            let suppliedInfo : LoginInfo = {
-              email           : email,
-              password        : password,
-            }
-            submitLoginButtonPress(suppliedInfo, props.firebase, setShowLoading, setShowAlert);
-          }}
-        />
-      </IonCard>
-      
-      {/* Card 4:  Sign Up Header*/}
-      <IonCard>
-        <CardHeader title={"Sign Up!"} subtitle={"Press the button below if you don't have a MTG Squire Account"} />
-      </IonCard>
-      
-      {/* Card 5:  SignUp Button*/}
-      <IonCard>
-        {/*Search Button*/}
-        <IonButton
-          expand="full" 
-          fill="solid"
-          color="primary"
-          type="submit"
-          title="Sign Up"
-          onClick={() => {
-            History.push("/profile")
-          }}
-        />
-      </IonCard>
+            {/*Search Button*/}
+            <IonButton
+              expand="full" 
+              fill="solid"
+              color="primary"
+              type="submit"
+              title="Sign Up"
+              onClick={() => {
+                history.push("/register");
+              }}
+            >
+              {"Sign Up"}
+            </IonButton>
+          </IonCardContent>
+        </IonCard>
       
       </IonContent>
     </IonPage>

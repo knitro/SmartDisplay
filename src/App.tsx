@@ -40,7 +40,8 @@ import LoginStateContext, { defaultLoginState } from './state/LoginState';
 ////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Main React App
+ * App Component.
+ * This contains only the Overall Context Providers 
  */
 const App: React.FC = () => {
 

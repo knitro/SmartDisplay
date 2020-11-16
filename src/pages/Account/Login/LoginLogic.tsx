@@ -17,7 +17,6 @@ export interface LoginInfo {
 export function submitLoginButtonPress(info : LoginInfo, firebase : Firebase, 
   loadingFunction : (value : boolean) => void, errorFunction : (value : boolean) => void) 
 {
-
   loadingFunction(true);
 
   firebase

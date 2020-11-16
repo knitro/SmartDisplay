@@ -23,6 +23,11 @@ import TodoList_Default from '../pages/Default/TodoList/TodoList_Default';
 ////////////////////////////////////////////////////////////////////////////////////
 
 import SideBar from '../components/SideBar/SideBar';
+import Settings from '../pages/Settings/Settings';
+import Profile from '../pages/Account/Profile/Profile';
+import Login from '../pages/Account/Login/Login';
+import Register from '../pages/Account/Register/Register';
+import History from '../logic/History';
 
 /**
  * Main React App
@@ -34,7 +39,7 @@ const Main: React.FC = () => {
   ////////////////////////////
   return (
     <IonApp>
-      <IonReactRouter>
+      <IonReactRouter history={History}>
 
         <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
 
@@ -43,13 +48,26 @@ const Main: React.FC = () => {
           <IonPage id="main"> {/* ID reference allowing for Sidebar Functionality */}
 
             <IonRouterOutlet>
+
+              {/*Default Pages*/}
               <Route path="/calendar"       component={Calendar_Default}      exact={true} />
               <Route path="/currentEvents"  component={CurrentEvents_Default} exact={true} />
               <Route path="/notes"          component={Notes_Default}         exact={true} />
               <Route path="/shoppingList"   component={ShoppingList_Default}  exact={true} />
               <Route path="/time"           component={Time_Default}          exact={true} />
               <Route path="/todoList"       component={TodoList_Default}      exact={true} />
+              <Route path="/settings"       component={Settings}              exact={true} />
+
+              {/*Logged In Pages*/}
+              <Route path="/myProfile"      component={Profile}               exact={true} />
+
+              {/*Logged Out Pages*/}
+              <Route path="/login"          component={Login}                 exact={true} />
+              <Route path="/register"       component={Register}              exact={true} />
+
+              {/*Blank Route*/}
               <Route path="/" render={() => <Redirect to="/time" />}          exact={true} />
+
             </IonRouterOutlet>
 
           </IonPage>
