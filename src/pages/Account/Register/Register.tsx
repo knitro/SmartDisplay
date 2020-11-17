@@ -1,25 +1,21 @@
-import { IonContent, IonPage } from '@ionic/react';
 import React from 'react';
-import Header from '../../../components/Header/Header';
-import WorkInProgress from '../../../components/WorkInProgress/WorkInProgress';
+import { FirebaseContext } from '../../../firebase';
+import RegisterPage from './RegisterPage';
 
 const Register: React.FC = () => {
-
-  const pageName : string = "Register";
 
   ////////////////////////////
   /*Return*/
   ////////////////////////////
 
   return (
-    <IonPage>
+    <div>
 
-      <Header headerLabel={pageName}/>
+      <FirebaseContext.Consumer>
+        {firebase => <RegisterPage firebase={firebase}/>}
+      </FirebaseContext.Consumer>
 
-      <IonContent>
-        <WorkInProgress name={pageName}/>
-      </IonContent>
-    </IonPage>
+    </div>
   );
 };
 
