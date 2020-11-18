@@ -154,7 +154,7 @@ const RegisterPage : React.FC<RegisterProps> = (props: RegisterProps) => {
               clearInput={true}
               autocomplete="username"
               placeholder={"Insert your Username Here"}
-              onChange={(event : any) => {updateFormUsername(event.target.value);}}
+              onIonChange={(event : any) => {updateFormUsername(event.target.value);}}
               required={true}
               clearOnEdit={false}
             />
@@ -167,7 +167,7 @@ const RegisterPage : React.FC<RegisterProps> = (props: RegisterProps) => {
               clearInput={true}
               autocomplete="email"
               placeholder={"Insert your Email Address Here"}
-              onChange={(event : any) => {updateFormEmail(event.target.value);}}
+              onIonChange={(event : any) => {updateFormEmail(event.target.value);}}
               required={true}
               clearOnEdit={false}
             />
@@ -180,7 +180,7 @@ const RegisterPage : React.FC<RegisterProps> = (props: RegisterProps) => {
               clearInput={true}
               autocomplete="off"
               placeholder={"Enter your Password Here"}
-              onChange={(event : any) => {updateFormPassword(event.target.value);}}
+              onIonChange={(event : any) => {updateFormPassword(event.target.value);}}
               required={true}
               clearOnEdit={false}
             />
@@ -193,7 +193,7 @@ const RegisterPage : React.FC<RegisterProps> = (props: RegisterProps) => {
               clearInput={true}
               autocomplete="off"
               placeholder={"Re-Enter your Password Here"}
-              onChange={(event : any) => {updateFormPasswordConfirm(event.target.value);}}
+              onIonChange={(event : any) => {updateFormPasswordConfirm(event.target.value);}}
               required={true}
               clearOnEdit={false}
             />
@@ -202,7 +202,7 @@ const RegisterPage : React.FC<RegisterProps> = (props: RegisterProps) => {
             <IonButton 
               disabled={!buttonAvail}
               color="secondary"
-              onClick={(event) => {
+              onClick={() => {
                 let suppliedInfo : SignUpInfo = {
                   username        : username,
                   email           : email,

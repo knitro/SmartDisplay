@@ -45,14 +45,15 @@ export function checkPasswordValidity(password : string, passwordConfirm : strin
  * @param props 
  */
 export function submitButtonPress(info : SignUpInfo, firebase : Firebase, 
-    loadingFunction : (value : boolean) => void, alertFunction : (value : boolean) => void) {
+    loadingFunction : (value : boolean) => void, alertFunction : (value : boolean) => void) 
+{
  
-  
   loadingFunction(true);
 
   firebase
     .doCreateUserWithEmailAndPassword(info.email, info.password)
     .then(async (authUser) => {
+
       if(authUser !== null) {
         authUser.updateProfile({
           displayName: info.username,

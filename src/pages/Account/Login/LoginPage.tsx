@@ -68,7 +68,7 @@ const LoginForm : React.FC<LoginProps> = (props: LoginProps) => {
               clearInput={true}
               autocomplete="email"
               placeholder={"Your Email Here"}
-              onChange={(event : any) => {setEmail(event.target.value);}}
+              onIonChange={(event : any) => {setEmail(event.target.value);}}
               required={true}
               clearOnEdit={false}
             />
@@ -81,7 +81,7 @@ const LoginForm : React.FC<LoginProps> = (props: LoginProps) => {
               clearInput={true}
               autocomplete="off"
               placeholder={"Your Password Here"}
-              onChange={(event : any) => {setPassword(event.target.value);}}
+              onIonChange={(event : any) => {setPassword(event.target.value);}}
               required={true}
               clearOnEdit={false}
             />
