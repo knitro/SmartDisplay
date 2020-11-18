@@ -108,7 +108,7 @@ const LoginForm : React.FC<LoginProps> = (props: LoginProps) => {
         
         {/* Card 3:  Sign Up*/}
         <IonCard>
-          <CardHeader title={"Sign Up!"} subtitle={"Press the button below if you don't have a MTG Squire Account"} />
+          <CardHeader title={"Sign Up!"} subtitle={"Press the button below if you don't have a SmartAccount"} />
 
           <IonCardContent>
 
