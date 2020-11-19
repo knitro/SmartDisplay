@@ -31,13 +31,13 @@ export const sideBarItems : SideBarItem[]= [
   {label: "Notes"           , path: "/notes"            , iconName: createOutline},
   {label: "ToDo List"       , path: "/todoList"         , iconName: listOutline},
   {label: "Settings"        , path: "/settings"         , iconName: settingsOutline},
+  {label: "Shopping List"   , path: "/shoppingList"     , iconName: cartOutline},
 ];
 
 /**
  * Logged In Sidebar Items
  */
 export const loggedInItems : SideBarItem[]= [
-  {label: "Shopping List"   , path: "/shoppingList"     , iconName: cartOutline},
   {label: "My Profile"      , path: "/myProfile"        , iconName: personCircle},
 ];
 
