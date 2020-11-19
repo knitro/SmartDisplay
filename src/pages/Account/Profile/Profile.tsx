@@ -1,25 +1,17 @@
-import { IonContent, IonPage } from '@ionic/react';
 import React from 'react';
-import Header from '../../../components/Header/Header';
-import WorkInProgress from '../../../components/WorkInProgress/WorkInProgress';
+import { FirebaseContext } from '../../../firebase';
+import ProfilePage from './ProfilePage';
 
 const Profile: React.FC = () => {
-
-  const pageName : string = "Profile";
 
   ////////////////////////////
   /*Return*/
   ////////////////////////////
 
   return (
-    <IonPage>
-
-      <Header headerLabel={pageName}/>
-
-      <IonContent>
-        <WorkInProgress name={pageName}/>
-      </IonContent>
-    </IonPage>
+    <FirebaseContext.Consumer>
+      {firebase => <ProfilePage firebase={firebase}/>}
+    </FirebaseContext.Consumer>
   );
 };
 
