@@ -28,8 +28,18 @@ export function submitLoginButtonPress(info : LoginInfo, firebase : Firebase,
     })
     .then(() => {
       loadingFunction(false);
-      console.log("Login Successful!");
-      History.push("/profile");
+      firebase.auth.onAuthStateChanged(function(user) {
+        if (user) {
+          // User has Successfully Logged In
+          console.log("Login Successful!");
+          History.push("/profile");
+        } else {
+          // User has Failed to Log In
+          console.log("Login Unsuccessful!");
+          errorFunction(true);
+        }
+      });
+      
     })
     .catch((error : any) => {
       loadingFunction(false);
