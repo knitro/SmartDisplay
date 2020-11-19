@@ -2,7 +2,7 @@
 /* Standard Imports */
 ////////////////////////////////////////////////////////////////////////////////////
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonPage, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
@@ -28,6 +28,8 @@ import Profile from '../pages/Account/Profile/Profile';
 import Login from '../pages/Account/Login/Login';
 import Register from '../pages/Account/Register/Register';
 import History from '../logic/History';
+import { FirebaseContext } from '../firebase';
+import FirebaseLogin from './FirebaseLogin';
 
 /**
  * Main React App
@@ -39,6 +41,11 @@ const Main: React.FC = () => {
   ////////////////////////////
   return (
     <IonApp>
+      
+      <FirebaseContext.Consumer>
+        {firebase => <FirebaseLogin firebase={firebase}/>}
+      </FirebaseContext.Consumer>
+
       <IonReactRouter history={History}>
 
         <IonSplitPane contentId="main"> {/* Adds/Allows the SideBar Functionality */}
@@ -59,7 +66,7 @@ const Main: React.FC = () => {
               <Route path="/settings"       component={Settings}              exact={true} />
 
               {/*Logged In Pages*/}
-              <Route path="/myProfile"      component={Profile}               exact={true} />
+              <Route path="/profile"        component={Profile}               exact={true} />
 
               {/*Logged Out Pages*/}
               <Route path="/login"          component={Login}                 exact={true} />
