@@ -2,7 +2,7 @@
 /* React Imports */
 ////////////////////////////////////////////////////////////////////////////////////
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 ////////////////////////////////////////////////////////////////////////////////////
 /* Ionic Imports */
@@ -41,9 +41,10 @@ import LoginStateContext, { defaultLoginState } from './state/LoginState';
 
 /**
  * App Component.
- * This contains only the Overall Context Providers 
+ * This contains only the Overall Context Providers and initial setups.
  */
-const App: React.FC = () => {
+const App : React.FC = () => {
+
 
   ////////////////////////////
   /*Return*/
