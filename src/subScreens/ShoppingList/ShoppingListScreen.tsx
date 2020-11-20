@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonText } from '@ionic/react';
-import { SubScreenEnums } from '../SubScreenEnums';
+import React from 'react';
+import Firebase from '../../firebase';
+import ShoppingListSelection from './ShoppingListSelection/ShoppingListSelection';
 
 ////////////////////////////////////////////////////////
 /*Props for SingleScreen*/
 ////////////////////////////////////////////////////////
 
 interface ShoppingList_Props {
-
+  firebase : Firebase
 }
 
 ////////////////////////////////////////////////////////
@@ -17,36 +17,17 @@ interface ShoppingList_Props {
 const ShoppingListScreen: React.FC<ShoppingList_Props> = (props : ShoppingList_Props) => {
 
   ////////////////////////////
-  /*Hook Initialisation*/
+  /*Pre Database Variable Initialisation*/
   ////////////////////////////
 
-  const [currentDate, setCurrentDate] = useState(new Date());
-  
-  useEffect(() => {
-    setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000)
-  });
+  const firebase : Firebase = props.firebase;
 
   ////////////////////////////
   /*Return*/
   ////////////////////////////
 
   return (
-    <IonContent>
-      <IonCard>
-        
-        <IonCardHeader>
-          <IonCardSubtitle>{"NZDT Time"}</IonCardSubtitle>
-          <IonCardTitle>{"Current Time"}</IonCardTitle>
-        </IonCardHeader>
-
-        <IonCardContent>
-          <IonText>{currentDate.toUTCString()}</IonText>
-        </IonCardContent>
-
-      </IonCard>
-    </IonContent>
+    <ShoppingListSelection firebase={firebase}/>
   );
 };
 
