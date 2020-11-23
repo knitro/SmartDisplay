@@ -7,26 +7,28 @@ import { UserShoppingLists, CurrentShoppingList, InvitedToShoppingList } from '.
 import uuid from "uuid";
 import SingleInviteList from './SupportingComponents/SingleInviteList';
 import SingleCurrentList from './SupportingComponents/SingleCurrentList';
+import { ShoppingListInfo } from '../interfaces/ShoppingListInfo';
 
 ////////////////////////////////////////////////////////
 /*Props for SingleScreen*/
 ////////////////////////////////////////////////////////
 
-interface ShoppingListSelection_Props {
-  firebase : Firebase
+interface Current_Props {
+  info : ShoppingListInfo
 }
 
 ////////////////////////////////////////////////////////
 /*SingleScreen*/
 ////////////////////////////////////////////////////////
 
-const ShoppingListSelection: React.FC<ShoppingListSelection_Props> = (props : ShoppingListSelection_Props) => {
+const ShoppingListSelection: React.FC<Current_Props> = (props : Current_Props) => {
 
   ////////////////////////////
   /*Pre Database Variable Initialisation*/
   ////////////////////////////
 
-  const firebase : Firebase = props.firebase;
+  const info : ShoppingListInfo = props.info;
+  const firebase : Firebase = info.firebase;
 
   ////////////////////////////
   /*Hook Initialisation*/
@@ -42,7 +44,7 @@ const ShoppingListSelection: React.FC<ShoppingListSelection_Props> = (props : Sh
   ////////////////////////////
   
   useEffect(() => {
-    firebase.db.ref('user-shopping-lists/' + props.firebase.auth.currentUser?.uid).on("value", snapshot => {
+    firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid).on("value", snapshot => {
       console.log(snapshot);
       if (snapshot && snapshot.exists()) {
         console.log("Existing Data!", snapshot.val());

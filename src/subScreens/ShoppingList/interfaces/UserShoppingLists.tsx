@@ -16,6 +16,13 @@ export interface CurrentShoppingList {
   otherUsers    : string[],
 }
 
+export const emptyCurrentShoppingList : CurrentShoppingList = {
+  name          : "",
+  subtitle      : "",
+  uid           : "",
+  otherUsers    : [],
+}
+
 /**
  * Information detailing about a shopping list that the user is invited to
  */
