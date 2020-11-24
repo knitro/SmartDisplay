@@ -109,7 +109,7 @@ const ShoppingListSelection: React.FC<Current_Props> = (props : Current_Props) =
             <IonCardContent>
               <IonText ><i>{"You are currently not part of any shopping list. Create one by pressing the \"Create Shopping List\" button above"}</i></IonText>
             </IonCardContent>
-            {invites.map((list : CurrentShoppingList) => <SingleCurrentList data= {list} key={uuid.v4()}/>)}
+            {currentLists.map((list : CurrentShoppingList) => <SingleCurrentList data= {list} key={uuid.v4()}/>)}
           </IonCard>
       }
       {/*Time Card*/}

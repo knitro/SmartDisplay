@@ -4,7 +4,7 @@ import { SubScreenEnums } from '../../subScreens/SubScreenEnums';
 import WorkInProgress from '../WorkInProgress/WorkInProgress';
 import TimeScreen from '../../subScreens/Time/TimeScreen';
 import ShoppingListScreen from '../../subScreens/ShoppingList/ShoppingListScreen';
-import { FirebaseContext } from '../../firebase';
+import Firebase, { FirebaseContext } from '../../firebase';
 
 ////////////////////////////////////////////////////////
 /*Props for SubScreen*/
@@ -48,7 +48,7 @@ const SubScreen: React.FC<SubScreen_Props> = (props : SubScreen_Props) => {
   else if (screenType === SubScreenEnums.SHOPPING_LIST) {
     return (
       <FirebaseContext.Consumer>
-        {firebase =>  <ShoppingListScreen firebase={firebase}/>}
+        {(firebase : Firebase) =>  <ShoppingListScreen firebase={firebase}/>}
       </FirebaseContext.Consumer>
     );
   }

@@ -27,7 +27,7 @@ interface Current_Props {
 /*ShoppingListScreen*/
 ////////////////////////////////////////////////////////
 
-class ShoppingListScreen extends React.Component<{}, ShoppingState> {
+class ShoppingListScreen extends React.Component<Current_Props, ShoppingState> {
 
   ////////////////////////
   /*"Constant" Variables*/

@@ -32,14 +32,14 @@ export const defaultLoginState : LoginState = {
 }
 
 /**
- * Context Creation for the LoginState.
- */
-const LoginStateContext = React.createContext<LoginState>(defaultLoginState);
-
-/**
  * Cached LoginState Information.
  */
 export var cacheLoginState : LoginState = Object.assign([], defaultLoginState);
+
+/**
+ * Context Creation for the LoginState.
+ */
+const LoginStateContext = React.createContext<LoginState>(cacheLoginState);
 
 ////////////////////////
 /*Capacitor Storage for Settings*/
@@ -98,7 +98,7 @@ export async function logout() : Promise<boolean>{
   });
 
   /*Save to Cache Storage*/
-  cacheLoginState = Object.assign([], defaultLoginState);
+  // cacheLoginState = Object.assign([], defaultLoginState);
 
   return returnValue;
 
