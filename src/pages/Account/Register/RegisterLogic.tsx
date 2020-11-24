@@ -27,7 +27,7 @@ export function checkPasswordValidity(password : string, passwordConfirm : strin
   //Null Check
   if ((password !== null) && (passwordConfirm !== null)) {
     //Check if the passwords are equal
-    if (password.localeCompare(passwordConfirm) == 0) {
+    if (password.localeCompare(passwordConfirm) === 0) {
       //Check if the password meets the length requirements
       if ((password.length >= MIN_PASSWORD_LENGTH) && (password.length <= MAX_PASSWORD_LENGTH)) {
         return true;

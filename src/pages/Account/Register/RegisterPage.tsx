@@ -35,6 +35,14 @@ const RegisterPage : React.FC<RegisterProps> = (props: RegisterProps) => {
    */
   const buttonCheckAvailability = () => {
 
+    console.log("email = "            + email);
+    console.log("password = "         + password);
+    console.log("passwordConfirm = "  + passwordConfirm);
+    console.log("usernameValid = "    + usernameValid);
+    console.log("emailValid = "       + emailValid);
+    console.log("passwordValid = "    + passwordValid);
+    console.log("buttonAvail = "      + buttonAvail);
+
     setButtonAvail(true);
     return;
     //Code below doesn't work due to delayed responses of the update hooks.
@@ -44,10 +52,6 @@ const RegisterPage : React.FC<RegisterProps> = (props: RegisterProps) => {
     // } else {
     //   setButtonAvail(false);
     // }
-    // console.log("password = " + password);
-    // console.log("passwordConfirm = " + passwordConfirm);
-    // console.log("passwordValid = " + passwordValid);
-    // console.log("buttonAvail = " + buttonAvail);
   }
 
   /**

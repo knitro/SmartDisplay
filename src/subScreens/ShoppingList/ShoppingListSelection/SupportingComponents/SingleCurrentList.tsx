@@ -28,7 +28,7 @@ const SingleCurrentList: React.FC<Current_Props> = (props : Current_Props) => {
   const otherUsers : string[] = data.otherUsers;
   
   let otherUsersString : string = "";
-  otherUsers.map((currentUser : string) => {otherUsersString = otherUsersString + currentUser + ", "});
+  otherUsers.forEach((currentUser : string) => {otherUsersString = otherUsersString + currentUser + ", "});
   const finalString = otherUsersString.slice(0, -1);
 
   ////////////////////////////

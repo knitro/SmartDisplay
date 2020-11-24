@@ -59,7 +59,7 @@ const NewShoppingList: React.FC<Current_Props> = (props : Current_Props) => {
 
           <IonItem>
             <IonLabel position="floating">{"Subtitle of List"}</IonLabel>
-            <IonInput value={nameOfList} required placeholder={"Enter Subtitle Here"}></IonInput>
+            <IonInput value={subtitle} required onIonInput={(event : any) => {setSubtitle(event.target.value);}} placeholder={"Enter Name Here"}></IonInput>
           </IonItem>
 
 
