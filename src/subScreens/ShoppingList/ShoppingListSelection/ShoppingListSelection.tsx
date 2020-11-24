@@ -3,11 +3,13 @@ import { IonCard, IonCardContent, IonContent, IonIcon, IonItem, IonText } from '
 import Firebase from '../../../firebase';
 import CardHeader from '../../../components/Card/CardHeader';
 import { addCircleOutline } from 'ionicons/icons';
-import { UserShoppingLists, CurrentShoppingList, InvitedToShoppingList } from '../interfaces/UserShoppingLists';
+import { UserShoppingLists, CurrentShoppingList, InvitedToShoppingList, emptyCurrentShoppingList } from '../interfaces/UserShoppingLists';
 import uuid from "uuid";
 import SingleInviteList from './SupportingComponents/SingleInviteList';
 import SingleCurrentList from './SupportingComponents/SingleCurrentList';
 import { ShoppingListInfo } from '../interfaces/ShoppingListInfo';
+import { ShoppingState } from '../interfaces/ShoppingState';
+import { ShoppingListPage } from '../ShoppingListScreen';
 
 ////////////////////////////////////////////////////////
 /*Props for SingleScreen*/
@@ -29,6 +31,7 @@ const ShoppingListSelection: React.FC<Current_Props> = (props : Current_Props) =
 
   const info : ShoppingListInfo = props.info;
   const firebase : Firebase = info.firebase;
+  const stateAdjuster : (state : ShoppingState) => void = info.stateAdjuster;
 
   ////////////////////////////
   /*Hook Initialisation*/
@@ -92,7 +95,10 @@ const ShoppingListSelection: React.FC<Current_Props> = (props : Current_Props) =
       {/*Add New Shopping List Card*/}
       <IonCard color="success" button
         onClick={ () => {
-          console.log("Pressed");
+          stateAdjuster({
+            currentScreen : ShoppingListPage.LIST_ADD,
+            selectedList  : emptyCurrentShoppingList
+          })
         }}
       >
         <IonItem color="success" lines="none">

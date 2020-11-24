@@ -4,6 +4,7 @@ import Firebase from '../../firebase';
 import { ShoppingListInfo } from './interfaces/ShoppingListInfo';
 import { ShoppingState } from './interfaces/ShoppingState';
 import { CurrentShoppingList, emptyCurrentShoppingList } from './interfaces/UserShoppingLists';
+import NewShoppingList from './NewShoppingList/NewShoppingList';
 import ShoppingListSelection from './ShoppingListSelection/ShoppingListSelection';
 
 ////////////////////////////////////////////////////////
@@ -85,7 +86,7 @@ class ShoppingListScreen extends React.Component<Current_Props, ShoppingState> {
     }
     else if (this.state.currentScreen === ShoppingListPage.LIST_ADD) {
       return (
-        <WorkInProgress name={"List Add"}/>
+        <NewShoppingList info={info}/>
       );
     }
     else if (this.state.currentScreen === ShoppingListPage.LIST_EDIT) {
