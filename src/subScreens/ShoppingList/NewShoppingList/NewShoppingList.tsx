@@ -1,11 +1,13 @@
 import { IonButton, IonCard, IonCardContent, IonContent, IonInput, IonItem, IonLabel } from '@ionic/react';
 import React, { useState } from 'react';
 import CardHeader from '../../../components/Card/CardHeader';
-import Firebase from '../../../firebase';
+import Firebase, { UserDataInterface } from '../../../firebase';
 import { ShoppingListInfo } from '../interfaces/ShoppingListInfo';
 import { ShoppingState } from '../interfaces/ShoppingState';
 import { emptyCurrentShoppingList } from '../interfaces/UserShoppingLists';
 import { ShoppingListPage } from '../ShoppingListScreen';
+import uuid from 'uuid';
+import { useHistory } from 'react-router';
 
 ////////////////////////////////////////////////////////
 /*Props for NewShoppingList*/
@@ -35,7 +37,7 @@ const NewShoppingList: React.FC<Current_Props> = (props : Current_Props) => {
 
   const [nameOfList , setNameOfList]  = useState("");
   const [subtitle   , setSubtitle]    = useState("");
-
+  const history = useHistory();
 
   ////////////////////////////
   /*Return*/
@@ -64,7 +66,64 @@ const NewShoppingList: React.FC<Current_Props> = (props : Current_Props) => {
 
 
           <IonButton color="secondary" onClick={() => {
-            console.log("Pressed");
+
+            //Check if there is an authenticated user or not
+            if (firebase.auth.currentUser !== null) {
+
+              /*Create a new UID*/
+              let uid : string = uuid.v4();
+              let referenceString : string = 'shopping-lists/' + uid;
+
+              /*Create the Shopping List*/
+              //Get the Database Once
+              firebase.db.ref(referenceString).once("value", snapshot => {
+
+                //If an existing value
+                if (snapshot && snapshot.exists()) {
+                  //TODO Handle this
+                  console.log("ERROR: UUID generated is duplicate");
+                } else { //Otherwise create a new entry
+              
+                  firebase.db.ref(referenceString)
+                  .set({
+                    "name"          : nameOfList,
+                    "subtitle"      : subtitle,
+                    "uid"           : uid,
+                    "otherUsers"    : [firebase.auth.currentUser?.uid],
+                  });
+                }
+              });
+              console.log("Created Shopping List");
+
+              /*Append to your user*/
+              const userReferenceString : string = 'user-shopping-lists/' + firebase.auth.currentUser?.uid + '/lists';
+              firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid + '/lists').once("value", snapshot => {
+
+                //If an existing value
+                if (snapshot && snapshot.exists()) {
+                  console.log("Existing User Info");
+
+                  let currentData : UserDataInterface = snapshot.val() as UserDataInterface;
+                  currentData.lists.push(uid);
+                  firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid + '/lists')
+                  .set({
+                    "lists": currentData, 
+                  });
+                } else { //Otherwise create a new entry
+              
+                  firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid)
+                  .set({
+                    "lists"   : [uid],
+                    "invited" : [],
+                  });
+                }
+              });
+              console.log("Appended List data to User");
+              
+            } else {
+              console.log("WARNING: This should not have happened");
+              history.push("/login");
+            }
           }}>
             {"Create your New Shopping List"}
           </IonButton>

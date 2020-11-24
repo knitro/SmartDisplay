@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IonCard, IonCardContent, IonContent, IonIcon, IonItem, IonText } from '@ionic/react';
-import Firebase from '../../../firebase';
+import Firebase, { UserDataInterface } from '../../../firebase';
 import CardHeader from '../../../components/Card/CardHeader';
 import { addCircleOutline } from 'ionicons/icons';
 import { UserShoppingLists, CurrentShoppingList, InvitedToShoppingList, emptyCurrentShoppingList } from '../interfaces/UserShoppingLists';
@@ -39,27 +39,73 @@ const ShoppingListSelection: React.FC<Current_Props> = (props : Current_Props) =
   
   const [isCurrentLists , setIsCurrentLists]  = useState(false);
   const [isInvites      , setIsInvites]       = useState(false);
-  const [currentLists , setCurrentLists]  = useState([] as CurrentShoppingList[]);
-  const [invites      , setInvites]       = useState([] as InvitedToShoppingList[]);
+  const [currentLists   , setCurrentLists]  = useState([] as CurrentShoppingList[]);
+  const [invites        , setInvites]       = useState([] as InvitedToShoppingList[]);
 
   ////////////////////////////
   /*Database Values Initialisation*/
   ////////////////////////////
   
   useEffect(() => {
+    console.log(firebase.auth.currentUser?.uid);
     firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid).on("value", snapshot => {
       console.log(snapshot);
       if (snapshot && snapshot.exists()) {
         console.log("Existing Data!", snapshot.val());
         
-        //Get Arrays
-        let currentLists : UserShoppingLists = snapshot.val() as UserShoppingLists;
+        /*Get List UIDs*/
+        let userData : UserDataInterface = snapshot.val() as UserDataInterface;
+        console.log("userData", userData)
+        let currentUIDs : string[] = userData.lists;
+        console.log("currentUIDs", currentUIDs)
+        let invitedUIDs : string[] = userData.invited;
+        console.log("invitedUIDs", invitedUIDs)
+
+        /*Get Arrays*/
+        let currentLists : UserShoppingLists = {
+          currentLists : [],
+          invitedLists : [],
+        };
+
+        //Append Current Shopping Lists
+        if (currentUIDs !== undefined) {
+          console.log("UIDs for Current Lists Exist")
+          currentUIDs.forEach((currentUID : string) =>
+            firebase.db.ref('shopping-lists/' + currentUID).on("value", snapshot => {
+              if (snapshot && snapshot.exists()) {
+                console.log("snapshot", snapshot.val());
+                let currentData : CurrentShoppingList = snapshot.val() as CurrentShoppingList;
+                currentLists.currentLists.push(currentData);
+                console.log("After Additions", currentLists);
+                setCurrentLists(currentLists.currentLists);
+                setIsCurrentLists(true);
+              }
+            }
+          ));
+        }
         
-        //Set Arrays
+        //Append Invited Shopping Lists
+        if (invitedUIDs !== undefined) {
+          console.log("UIDs for Invited Lists Exist")
+          invitedUIDs.forEach((currentUID : string) =>
+            firebase.db.ref('shopping-lists/' + currentUID).on("value", snapshot => {
+              if (snapshot && snapshot.exists()) {
+                let currentData : InvitedToShoppingList = snapshot.val() as InvitedToShoppingList;
+                currentLists.invitedLists.push(currentData);
+                setInvites(currentLists.invitedLists);
+                setIsCurrentLists(true);
+              }
+            }
+          ));
+        }
+
+        console.log("currentLists", currentLists);
+
+        /*Set Arrays*/
         setCurrentLists(currentLists.currentLists);
         setInvites(currentLists.invitedLists);
 
-        //Set Booleans
+        /*Set Booleans*/
         setIsCurrentLists( (currentLists.currentLists.length === 0) ? false : true);
         setIsCurrentLists( (currentLists.invitedLists.length === 0) ? false : true);
 
@@ -110,12 +156,13 @@ const ShoppingListSelection: React.FC<Current_Props> = (props : Current_Props) =
 
       {
         isCurrentLists 
-        ? <div></div>
+        ? <div>
+          {currentLists.map((list : CurrentShoppingList) => <SingleCurrentList data= {list} key={uuid.v4()}/>)}
+        </div>
         : <IonCard>
             <IonCardContent>
               <IonText ><i>{"You are currently not part of any shopping list. Create one by pressing the \"Create Shopping List\" button above"}</i></IonText>
             </IonCardContent>
-            {currentLists.map((list : CurrentShoppingList) => <SingleCurrentList data= {list} key={uuid.v4()}/>)}
           </IonCard>
       }
       {/*Time Card*/}
