@@ -96,19 +96,17 @@ const NewShoppingList: React.FC<Current_Props> = (props : Current_Props) => {
               console.log("Created Shopping List");
 
               /*Append to your user*/
-              const userReferenceString : string = 'user-shopping-lists/' + firebase.auth.currentUser?.uid + '/lists';
-              firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid + '/lists').once("value", snapshot => {
+              firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid).once("value", snapshot => {
 
                 //If an existing value
                 if (snapshot && snapshot.exists()) {
                   console.log("Existing User Info");
 
                   let currentData : UserDataInterface = snapshot.val() as UserDataInterface;
+                  console.log("currentData", currentData);
                   currentData.lists.push(uid);
-                  firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid + '/lists')
-                  .set({
-                    "lists": currentData, 
-                  });
+                  firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid + "/lists")
+                  .set(currentData.lists);
                 } else { //Otherwise create a new entry
               
                   firebase.db.ref('user-shopping-lists/' + firebase.auth.currentUser?.uid)

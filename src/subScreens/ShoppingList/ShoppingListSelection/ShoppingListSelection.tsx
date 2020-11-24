@@ -93,7 +93,7 @@ const ShoppingListSelection: React.FC<Current_Props> = (props : Current_Props) =
                 let currentData : InvitedToShoppingList = snapshot.val() as InvitedToShoppingList;
                 currentLists.invitedLists.push(currentData);
                 setInvites(currentLists.invitedLists);
-                setIsCurrentLists(true);
+                setIsInvites(true);
               }
             }
           ));
@@ -107,7 +107,7 @@ const ShoppingListSelection: React.FC<Current_Props> = (props : Current_Props) =
 
         /*Set Booleans*/
         setIsCurrentLists( (currentLists.currentLists.length === 0) ? false : true);
-        setIsCurrentLists( (currentLists.invitedLists.length === 0) ? false : true);
+        setIsInvites( (currentLists.invitedLists.length === 0) ? false : true);
 
       } else {
         console.log("No Existing Data");
